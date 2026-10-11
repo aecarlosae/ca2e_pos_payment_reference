@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="ca2e_pos_payment_reference.PaymentScreenPaymentLines" t-inherit="point_of_sale.PaymentScreenPaymentLines" t-inherit-mode="extension">
+        <!-- 1. Selected Payment Line -->
+        <xpath expr="(//div[hasclass('payment-infos')])[1]" position="after">
+            <t t-if="line.payment_method_id and !line.payment_method_id.is_cash_count">
+                <button
+                    class="btn btn-sm mx-1 px-2 d-flex align-items-center gap-1"
+                    t-att-class="line.payment_ref_no ? 'btn-success' : 'btn-secondary'"
+                    t-on-click.stop="() => this.openReferencePopup(line)"
+                    title="Set Payment Reference"
+                    aria-label="Set Payment Reference">
+                    <i class="fa fa-hashtag"/>
+                    <span t-if="line.payment_ref_no" class="small fw-bold" t-esc="line.payment_ref_no"/>
+                    <span t-else="" class="small">Reference</span>
+                </button>
+            </t>
+        </xpath>
+
+        <!-- 2. Unselected Payment Lines -->
+        <xpath expr="(//div[hasclass('payment-infos')])[2]" position="after">
+            <t t-if="line.payment_method_id and !line.payment_method_id.is_cash_count">
+                <button
+                    class="btn btn-sm mx-1 px-2 d-flex align-items-center gap-1"
+                    t-att-class="line.payment_ref_no ? 'btn-success' : 'btn-secondary'"
+                    t-on-click.stop="() => this.openReferencePopup(line)"
+                    title="Set Payment Reference"
+                    aria-label="Set Payment Reference">
+                    <i class="fa fa-hashtag"/>
+                    <span t-if="line.payment_ref_no" class="small fw-bold" t-esc="line.payment_ref_no"/>
+                    <span t-else="" class="small">Reference</span>
+                </button>
+            </t>
+        </xpath>
+    </t>
+</templates>
